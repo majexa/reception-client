@@ -1,0 +1,48 @@
+.App {
+    text-align: center;
+    background-size: cover;
+
+    position: relative;
+    height: 100%;
+    font-weight: normal;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.nav {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    z-index: 1000;
+}
+.nav select {
+    font-size: 30px;
+}
+.wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+.screens {
+    transition-duration: 0.2s;
+}
+.screen, .slide {
+    float: left;
+    height: 100%;
+    position: relative;
+}
+.screens.moveLeft {
+    transform: translate3d(0, 0, 0);
+}
+.screens.reset {
+    transition-duration: 0s;
+}
+.screen .cont {
+    padding: 30px 40px;
+    box-sizing: border-box;
+    text-align: center;
+}
+

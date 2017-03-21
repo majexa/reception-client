@@ -1,0 +1,46 @@
+.header {
+box-sizing: border-box;
+position: absolute;
+top: 0;
+left: 0;
+background: #7a463e;
+color: #fff;
+height: 50px;
+vertical-align: middle;
+width: 100%;
+}
+
+.wrapper {
+box-sizing: border-box;
+padding-top: 50px;
+}
+.wrapper.headerDisabled {
+padding-top: 0;
+}
+
+.header button {
+background: none;
+position: absolute;
+box-sizing: border-box;
+border: 0;
+
+height: 100%;
+padding: 0 20px 8px 20px;
+color: #fff;
+}
+
+.header button:hover {
+background-color: rgba(255, 255, 255, 0.3);
+}
+
+.header button.back {
+left: 0;
+border-right: 1px solid rgba(255, 255, 255, 0.31);
+}
+
+.header button.schedule {
+right: 0;
+border-left: 1px solid rgba(255, 255, 255, 0.31);
+background: url(./img/calendar.png) no-repeat center center;
+background-size: 80%;
+}

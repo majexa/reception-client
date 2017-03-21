@@ -1,0 +1,50 @@
+@font-face {
+font-family: 'planton';
+src: url('./fonts/planton.ttf') format('truetype');
+}
+
+body {
+margin: 0;
+padding: 0;
+user-select: none;
+background: #FEDEB5;
+font-family: planton;
+}
+
+body, html, div#root {
+height: 100%;
+}
+
+.App, button {
+font-size: 24px;
+}
+
+p {
+margin: 0 0 20px 0;
+}
+
+input {
+border: 2px solid #ccc;
+border-radius: 100px;
+box-sizing: border-box;
+width: 100%;
+padding: 10px;
+font-size: 27px;
+font-family: planton;
+}
+h2 {
+margin-top: 0;
+}
+h1,
+h2 {
+margin: 0;
+margin-bottom: 10px;
+}
+h1 {
+color: #E44E4E;
+font-size: 30px;
+}
+h2 {
+color: #5699A9;
+font-size: 20px;
+}
