@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as axios from 'axios';
-import config from '../config';
-import Request from '../utils/Request';
+import request from '../utils/request';
+
+import '../static/login.css';
 
 class ScreenLogin extends React.Component {
 
@@ -13,10 +13,6 @@ class ScreenLogin extends React.Component {
       phone: event.target.value
     });
   }
-
-  // componentDidMount() {
-  //   new Request(this.context.store).get(config.serverUrl);
-  // }
 
   validate() {
     if (this.props.phone.phone && this.props.phone.phone.match(/^[1-9]{1}[0-9]{10}$/)) {
@@ -65,9 +61,10 @@ class ScreenLogin extends React.Component {
   }
 
   sendSms() {
-    new Request(this.context.store)
-      .get(config.serverUrl + '/api/v1/sendCode?phone=' +
-      this.props.phone.phone);
+    request({
+      method: 'get',
+      path: 'sendCode?phone=' + this.props.phone.phone
+    });
   }
 
 }

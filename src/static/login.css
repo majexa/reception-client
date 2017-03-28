@@ -1,0 +1,12 @@
+.phoneField {
+position: relative;
+}
+.phonePlus {
+position: absolute;
+top: 12px;
+left: 15px;
+}
+.phoneField input {
+box-sizing: border-box;
+padding-left: 30px;
+}

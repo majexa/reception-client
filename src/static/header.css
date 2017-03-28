@@ -3,7 +3,7 @@ box-sizing: border-box;
 position: absolute;
 top: 0;
 left: 0;
-background: #7a463e;
+background: #000;
 color: #fff;
 height: 50px;
 vertical-align: middle;
@@ -24,7 +24,7 @@ position: absolute;
 box-sizing: border-box;
 border: 0;
 height: 100%;
-padding: 0 20px 8px 20px;
+padding: 0 30px 8px 30px;
 color: #fff;
 }
 .header button:hover {
@@ -41,16 +41,16 @@ background: url(./img/calendar.png) no-repeat center center;
 background-size: 80%;
 }
 .header button.schedule {
-right: 40px;
+right: 60px;
 border-left: 1px solid rgba(255, 255, 255, 0.31);
 background: url(./img/calendar.png) no-repeat center center;
-background-size: 80%;
+background-size: 35px;
 }
 .header button.logout {
 right: 0;
 border-left: 1px solid rgba(255, 255, 255, 0.31);
 background: url(./img/logout.png) no-repeat center center;
-background-size: 80%;
+background-size: 30px;
 }
 
 .header .windowSize {
@@ -58,7 +58,7 @@ font-family: sans-serif;
 background: #000;
 color: #fff;
 padding: 2px 4px;
-font-size: 10px;
+font-size: 15px;
 display: inline-block;
 }
 

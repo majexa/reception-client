@@ -7,7 +7,7 @@ body {
 margin: 0;
 padding: 0;
 user-select: none;
-background: #FEDEB5;
+/*background: #FEDEB5;*/
 font-family: planton;
 }
 
@@ -23,7 +23,7 @@ p {
 margin: 0 0 20px 0;
 }
 
-input {
+input, select {
 border: 2px solid #ccc;
 border-radius: 100px;
 box-sizing: border-box;

@@ -3,7 +3,24 @@ import {connect} from 'react-redux';
 
 class ScreenMySchedule extends React.Component {
 
-  getProfileContents() {
+  renderOverview() {
+    return <div>
+      <div className="face">&nbsp;</div>
+      <p>Массажист Андрей</p>
+    </div>
+  }
+
+  renderProfile() {
+    if (!this.props.schedule.date) {
+      return <div>
+        {this.renderOverview()}
+        <a href="#"
+           className="button"
+           onClick={this.gotoCalendar.bind(this)}>
+          <span>Записаться</span>
+        </a>
+      </div>
+    }
     return <div>
       <h1>Вы записались на</h1>
       <h2>{this.props.schedule.date} {this.props.schedule.time}</h2>
@@ -27,7 +44,7 @@ class ScreenMySchedule extends React.Component {
   render() {
     let contents;
     if (this.props.auth.profile) {
-      contents = this.getProfileContents()
+      contents = this.renderProfile()
     } else {
       contents = <div>Вы не залогинены</div>
     }

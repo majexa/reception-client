@@ -1,12 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
-import AuthRequest from '../utils/AuthRequest';
-
-import 'react-date-picker/index.css';
-import { DateField, Calendar } from 'react-date-picker';
+import sign from '../actions/sign';
 
 class ScreenCalendar extends React.Component {
+
+  renderTime() {
+    return <select
+      onChange={this.timeChanged.bind(this)}
+      value={this.props.schedule.time}
+    >
+      <option value="">время</option>
+      <option value="10:00">10:00</option>
+      <option value="11:00">11:00</option>
+      <option value="12:00">12:00</option>
+      <option value="13:00">13:00</option>
+      <option value="14:00">14:00</option>
+      <option value="15:00">15:00</option>
+      <option value="16:00">16:00</option>
+      <option value="17:00">17:00</option>
+      <option value="18:00">18:00</option>
+      <option value="19:00">19:00</option>
+    </select>
+  }
 
   render() {
     return <div style={{
@@ -14,22 +29,17 @@ class ScreenCalendar extends React.Component {
       height: this.props.size.height + 'px'
     }} className={'screen sCalendar'}>
       <div className="cont">
-        <p>Введите желаемое время приёма</p>
+        <p>Введите желаемый день и время приёма</p>
         <p>
-        <input type="date"
-               onChange={this.dateChanged.bind(this)}
-               value={this.props.schedule.date}
-        />
+          <input type="date"
+                 onChange={this.dateChanged.bind(this)}
+                 value={this.props.schedule.date}
+          />
         </p>
-        <p>
-        <input type="text"
-               onChange={this.timeChanged.bind(this)}
-               value={this.props.schedule.time}
-        />
-        </p>
+        <p>{this.renderTime()}</p>
         {
           this.props.schedule.date && this.props.schedule.time
-          ?
+            ?
             <div>
               <p>Вы записываетесь на {this.props.schedule.date} {this.props.schedule.time}</p>
               <a href="#" className="button"
@@ -44,28 +54,12 @@ class ScreenCalendar extends React.Component {
 
   sign(event) {
     event.preventDefault();
-    if (!this.props.auth.profile) {
-      this.context.store.dispatch({
-        type: 'SCREEN_CHANGE',
-        screen: 'Login'
-      });
-    } else {
-      new AuthRequest(
-        this.context.store,
-        this.props.auth.profile
-      ).post('mySchedule', {
-        date: new Date(this.props.schedule.date + ' ' + this.props.schedule.time)
-      }).then(() => {
-        this.context.store.dispatch({
-          type: 'SET_SCHEDULE_STORED',
-          stored: true
-        });
-        this.context.store.dispatch({
-          type: 'SCREEN_CHANGE',
-          screen: 'MySchedule'
-        });
-      });
-    }
+    sign(
+      this.context.store.getState(),
+      this.context.store.dispatch,
+      this.props.schedule.date,
+      this.props.schedule.time
+    );
   }
 
   dateChanged(event) {

@@ -28,29 +28,6 @@ class ScreenReception extends React.Component {
 
   gotoCalendar(e) {
     e.preventDefault();
-    // window.datePicker.show(options, onSuccess, onError);
-    let eventDate;
-    let eventTime;
-    const onDateSelected = (date) => {
-      eventDate = date;
-      window.datePicker.show({
-        date: new Date(),
-        mode: 'time'
-      }, onTimeSelected, onError);
-    };
-    const onTimeSelected = (time) => {
-      eventTime = time;
-    };
-    const onError = (error) => { // Android only
-    };
-    if (window.datePicker) {
-      window.datePicker.show({
-        date: new Date(),
-        mode: 'date'
-      }, onDateSelected, onError);
-      return;
-    }
-    //
     this.context.store.dispatch({
       type: 'SCREEN_CHANGE',
       screen: 'Calendar'

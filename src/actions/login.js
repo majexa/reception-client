@@ -1,11 +1,11 @@
 import config from '../config';
 import * as axios from 'axios';
+import initDeviceToken from './initDeviceToken';
 
 export default (phone, code, onLogin) => {
-  return (dispatch) => {
-
+  return (dispatch, state) => {
     const login = (onSuccess, onFails) => {
-      axios.get(config.serverUrl + '/api/v1/login?phone=' +
+      axios.get('http://' + config.serverHost + ':' + config.serverPort + '/api/v1/login?phone=' +
         phone + '&code=' + code
       ).then((response) => {
         if (response.data.error) {
@@ -17,16 +17,16 @@ export default (phone, code, onLogin) => {
         console.log(error);
       });
     };
-
-    login((data) => {
-      window.localStorage.setItem('profile', data);
+    login((profile) => {
+      window.localStorage.setItem('profile', JSON.stringify(profile));
       dispatch({
         type: 'STORE_AUTH',
-        profile: data
+        profile: profile
       });
+      initDeviceToken(state, profile.deviceToken);
       onLogin();
     }, (data) => {
-      if (data.error == 'no user') {
+      if (data.error === 'no user') {
         data.error = 'Неправильный код подтверждения, попробуйте ещё раз'
       }
       dispatch({

@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
 import Screens from './Screens';
-import AuthRequest from '../utils/AuthRequest';
-import initDeviceToken from '../actions/initDeviceToken';
+import auth from '../actions/auth';
+import initSchedule from '../actions/initSchedule';
 
 import '../static/screens.css';
 import '../static/header.css';
 import '../static/buttons.css';
+import '../static/spinner.css';
 
 class App extends React.Component {
 
@@ -20,65 +21,12 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.setHomepage();
-    this.initSchedule();
-    initDeviceToken(this.context.store.getState());
-  }
-
-  initSchedule() {
-    this.context.store.dispatch({
-      type: 'INIT_SCHEDULE',
-    });
-    if (!this.profile) return;
-    const dateformat = require('dateformat');
-    new AuthRequest(this.context.store, this.profile).get('mySchedule').then((schedule) => {
-      if (!schedule[0] || !schedule[0].date) return;
-      const date = new Date(schedule[0].date);
-      this.context.store.dispatch({
-        type: 'CHANGE_SCHEDULE_DATE',
-        date: dateformat(date, 'yyyy-mm-dd')
-      });
-      this.context.store.dispatch({
-        type: 'CHANGE_SCHEDULE_TIME',
-        time: dateformat(date, 'HH:MM')
-      });
-      this.context.store.dispatch({
-        type: 'SET_SCHEDULE_STORED',
-        stored: true
-      });
-    });
-  }
-
-  authorize() {
-    let profile = window.localStorage.getItem('profile');
-    if (profile) {
-      return this.profile = JSON.parse(profile);
-    }
-    return false;
-  }
-
-  setHomepage() {
-    if (this.authorize()) {
-      this.context.store.dispatch({
-        type: 'SET_AUTH',
-        profile: this.profile
-      });
-      this.context.store.dispatch({
-        type: 'SCREEN_INIT',
-        screen: 'Calendar'
-      });
-    } else {
-      this.context.store.dispatch({
-        type: 'SCREEN_INIT',
-        screen: 'Login'
-      });
-    }
+    auth(this.context.store.dispatch, this.context.store.getState());
+    initSchedule(this.context.store.dispatch, this.context.store.getState());
   }
 
   componentDidMount() {
-    this.setState({
-      loaded: true
-    });
+    this.context.store.dispatch({type: 'INIT_LOADING'});
     document.addEventListener('deviceready', () => {
     }, false);
     this.initSize();
@@ -100,8 +48,11 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.loaded === false) {
-      return <div className="Loading">Loading...</div>;
+    if (this.props.loading.loading === true) {
+      return <div className="loading">
+        Loading...
+        <div className="loader">&nbsp;</div>
+      </div>;
     }
     return (
       <div className="App" style={{width: this.props.size.width}}>

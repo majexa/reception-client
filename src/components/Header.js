@@ -16,10 +16,10 @@ class Header extends React.Component {
           :
           ''
       }
-      <div className="windowSize">
-        {window.innerWidth}x{window.innerHeight}
-        : {this.props.navigation.screen}
-      </div>
+      {/*<div className="windowSize">*/}
+        {/*{window.innerWidth}x{window.innerHeight}*/}
+        {/*: {this.props.navigation.screen}*/}
+      {/*</div>*/}
       {this.renderAuthorizedButtons()}
     </div>
   }
