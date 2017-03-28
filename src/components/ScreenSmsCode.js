@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import * as axios from 'axios';
-import config from '../config';
+import login from '../actions/login';
 
 class ScreenSmsCode extends React.Component {
 
@@ -31,7 +30,7 @@ class ScreenSmsCode extends React.Component {
           </p>
           {(this.validate() ?
               <a href="#" className="button"
-                onClick={this.next.bind(this)}>
+                onClick={this.login.bind(this)}>
                 <span>
                 Войти
                 </span>
@@ -83,38 +82,11 @@ class ScreenSmsCode extends React.Component {
   }
 
   _login() {
-    this.__login((data) => {
-      this.context.store.dispatch({
-        type: 'STORE_AUTH',
-        profile: data
-      });
-      this.nextScreenTimeoutId = setTimeout(() => {
-        this.next();
-      }, 1000);
-    }, (data) => {
-      if (data.error == 'no user') {
-        data.error = 'Неправильный код подтверждения, попробуйте ещё раз'
-      }
-      this.context.store.dispatch({
-        type: 'SCREEN_CHANGE',
-        screen: 'Error',
-        text: data.error
-      });
-    });
-  }
-
-  __login(onSuccess, onFails) {
-    axios.get(config.serverUrl + '/api/v1/login?phone=' +
-      this.props.phone.phone + '&code=' + this.state.code
-    ).then((response) => {
-      if (response.data.error) {
-        onFails(response.data);
-      } else {
-        onSuccess(response.data);
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
+    login(
+      this.props.phone.phone,
+      this.state.code,
+      this.next.bind(this)
+    )(this.context.store.dispatch);
   }
 
 }

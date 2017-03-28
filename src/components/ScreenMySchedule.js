@@ -7,7 +7,21 @@ class ScreenMySchedule extends React.Component {
     return <div>
       <h1>Вы записались на</h1>
       <h2>{this.props.schedule.date} {this.props.schedule.time}</h2>
+      <a href="#"
+         className="button"
+         onClick={this.gotoCalendar.bind(this)}>
+        <span>Перезаписаться</span>
+      </a>
     </div>
+  }
+
+  gotoCalendar(event) {
+    event.preventDefault();
+    this.context.store.dispatch({
+      type: 'SCREEN_CHANGE',
+      screen: 'Calendar',
+      direction: 'left'
+    });
   }
 
   render() {

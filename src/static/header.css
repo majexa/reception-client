@@ -23,24 +23,42 @@ background: none;
 position: absolute;
 box-sizing: border-box;
 border: 0;
-
 height: 100%;
 padding: 0 20px 8px 20px;
 color: #fff;
 }
-
 .header button:hover {
 background-color: rgba(255, 255, 255, 0.3);
 }
-
 .header button.back {
 left: 0;
 border-right: 1px solid rgba(255, 255, 255, 0.31);
 }
-
 .header button.schedule {
 right: 0;
 border-left: 1px solid rgba(255, 255, 255, 0.31);
 background: url(./img/calendar.png) no-repeat center center;
 background-size: 80%;
 }
+.header button.schedule {
+right: 40px;
+border-left: 1px solid rgba(255, 255, 255, 0.31);
+background: url(./img/calendar.png) no-repeat center center;
+background-size: 80%;
+}
+.header button.logout {
+right: 0;
+border-left: 1px solid rgba(255, 255, 255, 0.31);
+background: url(./img/logout.png) no-repeat center center;
+background-size: 80%;
+}
+
+.header .windowSize {
+font-family: sans-serif;
+background: #000;
+color: #fff;
+padding: 2px 4px;
+font-size: 10px;
+display: inline-block;
+}
+

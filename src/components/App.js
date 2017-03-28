@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Header from './Header';
 import Screens from './Screens';
 import AuthRequest from '../utils/AuthRequest';
+import initDeviceToken from '../actions/initDeviceToken';
 
 import '../static/screens.css';
 import '../static/header.css';
@@ -21,7 +22,7 @@ class App extends React.Component {
   componentWillMount() {
     this.setHomepage();
     this.initSchedule();
-    this.initDeviceToken();
+    initDeviceToken(this.context.store.getState());
   }
 
   initSchedule() {
@@ -45,26 +46,6 @@ class App extends React.Component {
         type: 'SET_SCHEDULE_STORED',
         stored: true
       });
-    });
-  }
-
-  initDeviceToken() {
-    if (!this.profile) return;
-    if (!window.GcmPushPlugin) return;
-    window.onNotification = function(a) {
-      alert(a);
-    };
-    window.GcmPushPlugin.register((result) => {
-      new AuthRequest(this.context.store, this.profile).get(
-        'updateDeviceToken?deviceToken=' + result.gcm
-      ).then(() => {
-        console.log('Device token updated successfully');
-      });
-    }, (err) => {
-      alert(err);
-    }, {
-      "senderId": "650779042104",
-      "jsCallback": "onNotification"
     });
   }
 

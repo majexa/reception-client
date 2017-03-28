@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import logout from '../actions/logout';
 
 class Header extends React.Component {
 
@@ -15,17 +16,37 @@ class Header extends React.Component {
           :
           ''
       }
-      {window.innerWidth}x{window.innerHeight}
-
-      {
-        this.props.auth.profile && this.props.navigation.screen !== 'MySchedule' ?
-          <button className="schedule"
-                  onClick={this.gotoMySchedule.bind(this)}>
-          </button>
-          :
-          ''
-      }
+      <div className="windowSize">
+        {window.innerWidth}x{window.innerHeight}
+        : {this.props.navigation.screen}
+      </div>
+      {this.renderAuthorizedButtons()}
     </div>
+  }
+
+  renderAuthorizedButtons() {
+    if (!this.props.auth.profile) {
+      return '';
+    }
+    const buttons = [];
+    if (this.props.navigation.screen !== 'MySchedule') {
+      buttons.push(
+        <button key="schedule" className="schedule"
+                onClick={this.gotoMySchedule.bind(this)}>
+        </button>
+      );
+    }
+    buttons.push(
+      <button key="logout" className="logout"
+              onClick={this.logout.bind(this)}
+              >
+      </button>
+    );
+    return buttons;
+  }
+
+  logout() {
+    logout(this.context.store.dispatch);
   }
 
   back() {
