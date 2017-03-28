@@ -50,7 +50,7 @@ class App extends React.Component {
   render() {
     if (this.props.loading.loading === true) {
       return <div className="loading">
-        Loading...
+        Подождите...
         <div className="loader">&nbsp;</div>
       </div>;
     }
